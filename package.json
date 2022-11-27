@@ -1,0 +1,18 @@
+{
+  "name": "Web_Final",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Jacqueline45/Web_Final.git",
+  "license": "MIT",
+  "scripts": {
+    "start": "cd frontend && yarn start",
+    "server": "cd backend && yarn server",
+    "build": "cd frontend && react-scripts build",
+    "start_react": "react-scripts start"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3"
+  }
+}
