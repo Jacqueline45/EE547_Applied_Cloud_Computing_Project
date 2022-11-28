@@ -1,3 +1,5 @@
+import { PubSub } from 'graphql-subscriptions';
+const pubsub = new PubSub();
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 
@@ -6,7 +8,7 @@ async function newUser(db, data){
 }
 
 const Mutation = {
-    async createUser(parent, { data }, { db, pubsub }, info) {
+    async createUser(parent, { data }, { db }, info) {
         try{
             console.log("Sign Up Ginny")
             if (!data.name || !data.password) {
@@ -56,7 +58,7 @@ const Mutation = {
         }  catch(e){console.log(e)}
     },
 
-    async updateUser(parent, args, { db, pubsub }, info) {
+    async updateUser(parent, args, { db }, info) {
         try{
             const { name, friends, mood, today } = args.data;
             const user = await db.UserModel.findOne({name: name});
@@ -102,10 +104,10 @@ const Mutation = {
         } catch(e){console.log(e)}
     },
 
-    /* type: 4 => 一個人可以有很多posts
-     * type: 6 => 一人只有一個post
-     */
-    async createPost(parent, {data}, { db, pubsub }, info) {
+    // type: 4 => Each person can have many posts.
+    // type: 6 => Each person can have only one post.
+     
+    async createPost(parent, {data}, { db }, info) {
         try {
             const {type, body, author} = data;
             const user = await db.UserModel.findOne({name: author});
@@ -150,12 +152,12 @@ const Mutation = {
         }catch(e) {console.log(e)}
     },
 
-    async deletePost(parent, {type, _id, author}, { db, pubsub }, info) {
+    async deletePost(parent, {type, _id, author}, { db }, info) {
         try{
             const user = await db.UserModel.findOne({name: author})
-            if(!user) thorw('User no found')
+            if(!user) throw('User not found')
             const post = await db.PostModel.findOne({type: type, _id: _id, author: user});
-            if(!post) thorw('Post no found')
+            if(!post) throw('Post not found')
 
             await db.PostModel.deleteOne({type: type, _id: _id, author: user});
             const comments = await db.CommentModel.deleteMany({post: post});
@@ -172,7 +174,7 @@ const Mutation = {
         } catch(e) {console.log(e)}
     },
     
-    async createComment (parent, {data}, { db, pubsub }, info) {
+    async createComment (parent, {data}, { db }, info) {
         try {
             const {type, postId, postAuthor, body, author} = data;
             if (type !== 6) {
@@ -217,7 +219,7 @@ const Mutation = {
         } catch (e) {console.log(e)}
     },
 
-    async deleteComment (parent, {data}, { db, pubsub }, info) {
+    async deleteComment (parent, {data}, { db }, info) {
         try {
             const {type, postId, postAuthor, commentId, author} = data
             const postUser = await db.UserModel.findOne({name: postAuthor})
@@ -250,7 +252,7 @@ const Mutation = {
         } catch (e) {console.log(e)}
     },
 
-    async createOneMessage(parent, {sender, body}, { db, pubsub }, info) {
+    async createOneMessage(parent, {sender, body}, { db }, info) {
         try{
             const user = await db.UserModel.findOne({name: sender})
             if(!user) throw ("User not found")
@@ -278,7 +280,7 @@ const Mutation = {
         }  catch(e) {console.log(e)}
     },
 
-    async updateOneMessage(parent, {sender, body}, { db, pubsub }, info) {
+    async updateOneMessage(parent, {sender, body}, { db }, info) {
         try{
             const user = await db.UserModel.findOne({name: sender})
             if(!user) throw ("User not found")
@@ -307,7 +309,7 @@ const Mutation = {
         }  catch(e) {console.log(e)}
     },
 
-    async createVote (parent, {data}, { db, pubsub }, info) {
+    async createVote (parent, {data}, { db }, info) {
         try{
             const {vote, creator} = data;
             const User = await db.UserModel.findOne({name: creator});
@@ -330,7 +332,7 @@ const Mutation = {
         }catch(e) {console.log(e)}
     },
 
-    async updateVote (parent, {data}, { db, pubsub }, info) {
+    async updateVote (parent, {data}, { db }, info) {
         try{
             const {vote, creator} = data;
             const User = await db.UserModel.findOne({name: creator});
@@ -354,7 +356,7 @@ const Mutation = {
         }catch(e) {console.log(e)}
     },
 
-    async deleteVote (parent, {user}, { db, pubsub }, info) {
+    async deleteVote (parent, {user}, { db }, info) {
         try{
             const User = await db.UserModel.findOne({name: user});
             if(!User) throw ("User not found")

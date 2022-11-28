@@ -19,9 +19,8 @@ cd backend && npm install
 cd .. && yarn server
 ```
 3. If the server is activated successfully, you'll see:
-```
-GraphQL API server running at http://localhost:5000/
-```
+&nbsp; GraphQL Server running on http://localhost:5000/graphql \
+&nbsp; WebSockets listening on ws://localhost:5000/graphql
 ### Frontend
 1. Install dependencies under frontend/
 ```cmd
