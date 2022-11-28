@@ -18,7 +18,7 @@ cd backend && npm install
 ```cmd
 cd .. && yarn server
 ```
-3. If the server is activated successfully, you'll see:
+3. If the server is activated successfully, you'll see: \
 &nbsp; GraphQL Server running on http://localhost:5000/graphql \
 &nbsp; WebSockets listening on ws://localhost:5000/graphql
 ### Frontend
@@ -44,4 +44,9 @@ cd .. && yarn start
   - Sign up 
     - case1:(SUCCESS) --> Show Mood Menu
     - case2:(USER EXIST) --> "Username taken. Try another. If already registered, please log in."
+
+2. Loads of Deadline but Only Wanna be a Couch Potato
+  - Should show previous posts if any.
+  - Adding or deleting a post will immediately rerender accordingly.
+  - Each post is draggable and removable.  
 
