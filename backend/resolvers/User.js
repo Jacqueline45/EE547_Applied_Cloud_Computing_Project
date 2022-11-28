@@ -1,5 +1,7 @@
+import db from './db';
+
 const User = {
-    friends(parent, args, { db }, info) {
+    friends(parent, args, context, info) {
         return Promise.all (
             parent.friends.map(
                 (Id) => db.UserModel.findById(Id).

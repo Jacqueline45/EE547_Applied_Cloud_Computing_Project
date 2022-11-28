@@ -1,31 +1,29 @@
-import { PubSub } from 'graphql-subscriptions';
-const pubsub = new PubSub();
+import pubsub from './pubsub';
 
 const Subscription = {
     user: {
-        subscribe(parent, args, context, info) {
-          return pubsub.asyncIterator('user');
-        },
+      resolve: (payload) => {return payload.user},
+      subscribe: () => {return pubsub.asyncIterator(['user'])}
     },
     post: {
-        async subscribe(parent, {type, author}, context, info) {
-          return pubsub.asyncIterator('post'+`${type}`+`${author}`);
-        },
+      resolve: (payload) => {return payload.post},
+      subscribe: (parent, {type, author}, context, info) => {
+        return  pubsub.asyncIterator(['post'+`${type}`+`${author}`]);
+      }              
     },
     post6: {
-      async subscribe(parent, {type}, context, info) {
-        return pubsub.asyncIterator('post6'+`${type}`);
+      resolve: (payload) => {return payload.post6;},
+      subscribe: () => {
+        return pubsub.asyncIterator('post6');
       },
     },
     oneMessage: {
-        subscribe(parent, args, context, info) {
-          return pubsub.asyncIterator('oneMessage');
-        },
+      resolve: (payload) => {return payload.oneMessage},
+      subscribe: () => {return pubsub.asyncIterator(['oneMessage'])}
     },
     vote: {
-      subscribe(parent, args, context, info) {
-        return pubsub.asyncIterator('vote');
-      },
+      resolve: (payload) => {return payload.vote},
+      subscribe: () => {return pubsub.asyncIterator(['vote'])}
   },
 };
 

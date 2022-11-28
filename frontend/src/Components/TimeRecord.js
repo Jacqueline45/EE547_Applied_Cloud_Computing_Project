@@ -8,10 +8,10 @@ var randomColor = require("randomcolor");
 
 const TimeRecord = ({me, displayStatus}) => {
     const [itemInput, setItemInput] = useState("");
-    const { loading, error, data, subscribeToMore, refetch } = useQuery(
+    const { loading, error, data, subscribeToMore } = useQuery(
         POST_QUERY, 
-        {variables:{ type: 4, author: me}},
-        { fetchPolicy: 'cache-and-network'});
+        { variables:{ type: 4, author: me} },
+        { fetchPolicy: 'cache-and-network'} );
     const [addPost] = useMutation(CREATE_POST_MUTATION);
     const [deletePost] = useMutation(DELETE_POST_MUTATION);
     useEffect(() => {
@@ -28,7 +28,7 @@ const TimeRecord = ({me, displayStatus}) => {
             },
           });
         } catch (e) {console.log("subscription problem")}
-      }, [data]);
+      }, [subscribeToMore]);
     const addItem =  async (itemInput) => {
         await addPost({
             variables:{
@@ -49,7 +49,6 @@ const TimeRecord = ({me, displayStatus}) => {
             }
             addItem(itemInput);
             setItemInput("");
-            await refetch();
         }
     }
     return (
@@ -76,7 +75,6 @@ const TimeRecord = ({me, displayStatus}) => {
                             }
                             addItem(itemInput);
                             setItemInput("");
-                            await refetch();
                         }}>
                         Enter
                     </button>
@@ -105,7 +103,6 @@ const TimeRecord = ({me, displayStatus}) => {
                                                     author: me
                                                 }
                                             });
-                                            await refetch();
                                         }}>X
                                     </button>
                                 </div>

@@ -48,5 +48,12 @@ cd .. && yarn start
 2. Loads of Deadline but Only Wanna be a Couch Potato
   - Should show previous posts if any.
   - Adding or deleting a post will immediately rerender accordingly.
-  - Each post is draggable and removable.  
+  - Each post is draggable and removable. 
+
+3. Extreme Sleepiness
+  -  Click twice/once on the bulb: light off/on
+
+4. Some Great News
+  - Each person can have only one post but multiple comments.
+  - Open a new tab at localhost:3000 and log in with a different username, you'll see updates from both tabs simultaneously.
 

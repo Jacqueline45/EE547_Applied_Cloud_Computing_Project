@@ -7,14 +7,14 @@ import FriendBar from '../Containers/FriendBar';
 
 const PostShare = ({ me, displayStatus }) => {
   const [contextInput, setContextInput] = useState("");
-  const { loading, error, data, subscribeToMore } = useQuery(POST_QUERY, {variables:{ type: 6 }});
+  const { loading, error, data, subscribeToMore } = useQuery(POST_QUERY, { variables:{ type: 6 } });
   const [updatePost] = useMutation(CREATE_POST_MUTATION);
   const [updateComment] = useMutation(CREATE_COMMENT_MUTATION);
   useEffect(() => {
     try {
       subscribeToMore({
         document: POST_SUBSCRIPTION6,
-        variables: {type: 6},
+        variables: {},
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev;
           const newPost = subscriptionData.data.post6.data;
@@ -23,8 +23,8 @@ const PostShare = ({ me, displayStatus }) => {
           });
         },
       });
-    } catch (e) {console.log("subscription problem")}
-  }, [data]);
+    } catch (e) {console.log("subscription problem");}
+  }, [subscribeToMore]);
   const updateItem =  async (contextInput) => {
     await updatePost({
         variables:{
@@ -35,7 +35,6 @@ const PostShare = ({ me, displayStatus }) => {
     });}
   return (
     <>  <div className="App-messages">
-          <FriendBar/>
           <div className="post-input-inner">
             <textarea className="contextt-input"
                 value={contextInput} 
@@ -44,15 +43,16 @@ const PostShare = ({ me, displayStatus }) => {
             />
             <button className="btn3 btn3-primary btn3-block btn3-large"
                 onClick={() => {
-                if(contextInput.trim()===""){
-                    displayStatus({
-                        type: "error",
-                        msg: "Please enter something to share.",
-                    });
-                    return;
-                }
-                updateItem(contextInput);
-                setContextInput("");}}>
+                  if(contextInput.trim()===""){
+                      displayStatus({
+                          type: "error",
+                          msg: "Please enter something to share.",
+                      });
+                      return;
+                  }
+                  updateItem(contextInput);
+                  setContextInput("");
+                }}>
                     Post
             </button>
           </div>

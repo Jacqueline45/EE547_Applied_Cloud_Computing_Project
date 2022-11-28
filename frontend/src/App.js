@@ -21,7 +21,7 @@ const App = () => {
     if (payload.msg) {
       const { type, msg } = payload;
       const content = {
-        content: msg, duration: 5 }
+        content: msg, duration: 3 }
       switch (type) {
         case 'success':
           message.success(content)

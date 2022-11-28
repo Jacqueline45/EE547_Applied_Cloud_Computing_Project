@@ -9,7 +9,7 @@ export const POST_SUBSCRIPTION = gql`
         type: $type
         author: $author
     ){
-    mutation
+      mutation
       data{
         type
         time

@@ -6,7 +6,6 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 const { execute, subscribe } = require('graphql');
 const cors = require('cors');
-import db from './db';
 import User from '../resolvers/User'
 import Message from '../resolvers/Message'
 import Post from '../resolvers/Post'
@@ -37,9 +36,7 @@ async function connectMongo() {
   const db = mongoose.connection;
 
   db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open',  () => {
-    console.log('Mongo database connected!');
-  });
+  db.once('open',  () => {console.log('Mongo database connected!');});
 }
 
 (async function () {
@@ -63,8 +60,7 @@ async function connectMongo() {
   app.use(path, graphqlHTTP(async () => {
     return {
       schema,
-      graphiql: true,
-      context: { db: db }  
+      graphiql: true
     }
   }));
 

@@ -1,6 +1,7 @@
+import db from './db';
 const mongoose = require('mongoose');
 const Query = {
-  async users(parent, {name}, { db }, info) {
+  async users(parent, {name}, context, info) {
       if (!name) {
         return await db.UserModel.find({}).
           collation({locale: "en"}).
@@ -15,7 +16,7 @@ const Query = {
       return ul
   },
 
-  async signIn(parent, {name, password}, {db}, info){
+  async signIn(parent, {name, password}, context, info){
     try{
       if(!name || !password) return;
 
@@ -32,7 +33,7 @@ const Query = {
     } catch(e) {return "USER_NOT_FOUND";}
   },
   
-  async posts(parent, {type, author}, { db }, info) {
+  async posts(parent, {type, author}, context, info) {
     try{
       let time = new Date().toJSON().slice(0,10) +"T00:00:00.000Z"
       console.log("time: "+time);
@@ -86,7 +87,7 @@ const Query = {
     } catch(e) {console.log(e)}
   },
 
-  async onemessageboxes(parent, args, {db}, info){
+  async onemessageboxes(parent, args, context, info){
     let time = new Date().toJSON().slice(0,10) +"T00:00:00.000Z"
     console.log("time: "+time);
 
@@ -94,7 +95,7 @@ const Query = {
     return await db.OneMessageBoxModel.find().sort({date: 1});
   },
 
-  async votes(parent, {vote}, {db}, info){
+  async votes(parent, {vote}, context, info){
     if(!vote){
       return await db.VoteModel.find()
     } else {

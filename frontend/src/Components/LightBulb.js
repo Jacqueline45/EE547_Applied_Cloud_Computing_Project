@@ -5,7 +5,6 @@ import FriendBar from '../Containers/FriendBar';
 const LightBulb = () => {
     return (
         <>
-            <FriendBar/>
             <div className="LB-container">
                 <div id="lampadario">
                     <input className="input" type="radio" name="switch" value="on" onkeypress="return false;"/>
@@ -15,11 +14,11 @@ const LightBulb = () => {
                     <div id="lampadina">             
                         <div id="sorpresa">
                             <div id="footer">
-                                Wanna sleep all the time QQ   Please turn off the light 
+                                [ON/OFF: Click once/twice] Wanna sleep? Click twice on the bulb to turn the light off! 
                             </div>
                             
                             <div id="shadow">
-                                Wanna sleep all the time QQ   Please turn off the light 
+                                [ON/OFF: Click once/twice] Wanna sleep? Click twice on the bulb to turn the light off!  
                             </div>
                         </div>
                     </div>
