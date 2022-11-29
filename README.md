@@ -57,3 +57,7 @@ cd .. && yarn start
   - Each person can have only one post but multiple comments.
   - Open a new tab at localhost:3000 and log in with a different username, you'll see updates from both tabs simultaneously.
 
+5. Damnnnnn
+  - Should show previous votes if any.
+  - Adding a post will immediately rerender accordingly.
+

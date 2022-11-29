@@ -11,7 +11,7 @@ import MoodChoice from './Components/MoodChoice';
 import TimeRecord from './Components/TimeRecord';
 import PostShare from './Components/PostShare';
 import LightBulb from './Components/LightBulb';
-import NorthSucks from './Components/NorthSucks';
+import Damn from './Components/Damn';
 import PositivePost from './Components/PositivePost';
 import Blank from './Components/Blank';
 
@@ -43,7 +43,7 @@ const App = () => {
               <Route path='/time-record' element={<TimeRecord me={me} displayStatus={displayStatus}/>} />
               <Route path='/post-share' element={<PostShare me={me} displayStatus={displayStatus}/>} />
               <Route path='/light-bulb' element = {<LightBulb/>} />
-              <Route path='/north-sucks' element={<NorthSucks me={me} displayStatus={displayStatus}/>} />
+              <Route path='/damn' element={<Damn me={me} displayStatus={displayStatus}/>} />
               <Route path='/positive-post' element={<PositivePost me={me}/>} />
               <Route path='/blank-mind' element={<Blank/>} />
         </Routes>

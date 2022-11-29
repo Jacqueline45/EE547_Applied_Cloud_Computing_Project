@@ -21,37 +21,6 @@ const PositivePost = ({me}) => {
     const { loading, error, data, refetch } = useQuery(ONEMESSAGEBOX_QUERY);
     const [hasPost, setHasPost] = useState(false);
 
-    /*useEffect((me) => {
-        try{
-            subscribeToMore({
-                document: ONEMESSAGE_SUBSCRIPTIONS,
-                // variables: {},
-                updateQuery: (prev, { subscriptionData }) => {
-                    if (!subscriptionData.data) return prev;
-                    const newMessage = subscriptionData.data.oneMessage; // {mutation,sender,body}
-                    // console.log("newMessage = "+ newMessage)
-                    
-                    // console.log("newMessage.sender = "+ newMessage.sender)
-                    // console.log("newMessage.body = "+ newMessage.body)
-                    // let mylist = prev.onemessageboxes.map(i => i)
-                    // console.log(mylist)
-                    // mylist = mylist.filter(({sender, body}) => sender.name !== me);
-                    // console.log(idx)
-                    // if(idx > -1) {
-                    //     mylist.splice(idx, 1)
-                    // } 
-                    // console.log(mylist)
-                    return Object.assign({}, prev, {
-                        onemessageboxes: [...prev.onemessageboxes, {sender:{name:newMessage.sender}, body: newMessage.body}]
-                    });
-                },
-            });
-            
-            // console.log("activekey = "+activeKey)
-            // console.log("newMessage = "+ newMessage)
-        } catch (e) {console.log("error in useEffect: " + e )}
-    }, [subscribeToMore])*/
-
     const randomNumberX = () => {
         const min = 0;
         const max = 1200;
@@ -75,7 +44,6 @@ const PositivePost = ({me}) => {
 
     const check = () => {
         if(!data) return false
-        // console.log(data)
         let a = data.onemessageboxes.find(({sender, body}, id) =>
             sender.name === me
         )
@@ -88,7 +56,6 @@ const PositivePost = ({me}) => {
         <body>
             <div id="react-container">
                 <div className="board">
-                <FriendBar/>
                 {loading ? (
                     <p>Loading...</p>
                 ) : error ? (
@@ -125,7 +92,6 @@ const PositivePost = ({me}) => {
                                 }else{
                                     message.error({ content:"You had posted before." , duration: 1.5 })
                                 }
-                                // setActiveKey(createChatBox(name, me));
                                 setModalVisible(false);
                                 setHasPost(true);
                             }}

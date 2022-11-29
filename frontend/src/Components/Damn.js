@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import {VOTE_QUERY, CREATE_VOTE_MUTATION, UPDATE_VOTE_MUTATION} from '../graphql'; 
 
-const NorthSucks = ({me, displayStatus}) => {
+const Damn = ({me, displayStatus}) => {
     const [item, setItem] = useState("");
     const { loading, error, data, refetch } = useQuery(VOTE_QUERY);
     const [addVote] = useMutation(CREATE_VOTE_MUTATION);
@@ -32,7 +32,7 @@ const NorthSucks = ({me, displayStatus}) => {
             if(item.trim()===""){
                 displayStatus({
                     type: "error",
-                    msg: "Please enter a bei-lan story.",
+                    msg: "Please enter a story that sucks.",
                 });
                 return;
             }
@@ -47,10 +47,10 @@ const NorthSucks = ({me, displayStatus}) => {
                     className="context-input beilan-input"
                     value={item}
                     onChange={(e) => setItem(e.target.value)}
-                    placeholder="Your bei-lan story today"
+                    placeholder="Your story that sucks today"
                     onKeyPress={(e) => keyPress(e)}
                 />
-                <span id="question">Which story do you think is the most bei-lan(北爛)?</span>
+                <span id="question">Which story do you think that distastefully sucks the most?</span>
                 {loading ? (
                     <p>Loading...</p>
                 ): error ? (
@@ -75,4 +75,4 @@ const NorthSucks = ({me, displayStatus}) => {
     );
 };
 
-export default NorthSucks;
+export default Damn;
