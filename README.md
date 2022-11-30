@@ -61,3 +61,8 @@ cd .. && yarn start
   - Should show previous votes if any.
   - Adding a post will immediately rerender accordingly.
 
+6. I can do it
+  - Should be able to write a note and edit.
+  
+7. Blank
+

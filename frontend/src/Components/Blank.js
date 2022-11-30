@@ -4,11 +4,9 @@ import FriendBar from '../Containers/FriendBar';
 
 
 const Blank = () => {
-
     return (
         <>
-            <FriendBar/>
-            <p class="line-5 anim-typewriter">There is no necessity to be in a specific mood of color. Mind Blanking is also an option.</p>
+            <p class="line-5 anim-typewriter">Mind Blanking turns the complicated to the simple. You embrace the entirety.</p>
         </>
     );
 };
