@@ -1,7 +1,8 @@
 type Query {
   users(name: String): [User!]
   signIn(name: String!, password: String!): SignInType
-  posts(type: Int, author: String): [Post!]
+  posts(author: String): [Post!]
+  dues(author: String!): [Due!]
   onemessageboxes: [Message!]
   votes(vote: String): [Vote!]
 }
@@ -12,9 +13,12 @@ type Mutation {
   updateUser(data: UpdateUserInput!): User!
 
   createPost(data: CreatePostInput!): Post!
-  deletePost(type: Int!, _id: ID!, author: String!): Post!
+  deletePost(_id: ID!, author: String!): Post!
   createComment(data: CreateCommentInput!): Comment!
   deleteComment(data: DeleteCommentInput!): Comment!
+
+  createDue(data: CreateDueInput!): Due!
+  deleteDue(_id: ID!, author: String!): Due!
 
   createOneMessage(sender: String!, body: String!): Message!
   updateOneMessage(sender: String!, body: String!): Message!
@@ -28,8 +32,8 @@ type Mutation {
 
 type Subscription {
   user: UserSubscriptionPayload!
-  post(type: Int, author: String): PostSubscriptionPayload!
-  post6: PostSubscriptionPayload!
+  due(author: String!): DueSubscriptionPayload!
+  post: PostSubscriptionPayload!
   oneMessage: OneMessageSubscriptionPayload!
   vote: VoteSubscriptionPayload!
 }
@@ -59,9 +63,15 @@ type Sender {
   name: String!
 }
 
+type Due {
+  _id: ID!
+  due: String!
+  body: String!
+  author: Author!
+}
+
 type Post {
   _id: ID!
-  type: Int!
   time: String!
   body: String!
   author: Author!
@@ -100,6 +110,11 @@ type PostSubscriptionPayload {
   data: Post!
 }
 
+type DueSubscriptionPayload {
+  mutation: MutationType!
+  data: Due!
+}
+
 type VoteSubscriptionPayload {
   mutation: MutationType!
   data: Vote!
@@ -124,13 +139,17 @@ input UpdateUserInput {
 }
 
 input CreatePostInput {
-  type: Int!
+  body: String!
+  author: String!
+}
+
+input CreateDueInput {
+  due: String!
   body: String!
   author: String!
 }
 
 input CreateCommentInput {
-  type: Int!
   postId: ID!
   postAuthor: String!
   body: String!

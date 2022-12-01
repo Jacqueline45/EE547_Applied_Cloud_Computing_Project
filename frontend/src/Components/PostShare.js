@@ -2,22 +2,22 @@ import "../App.css";
 import PostBox from "./PostBox";
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import {POST_QUERY, CREATE_POST_MUTATION, POST_SUBSCRIPTION6, CREATE_COMMENT_MUTATION} from '../graphql';
+import {POST_QUERY, CREATE_POST_MUTATION, POST_SUBSCRIPTION, CREATE_COMMENT_MUTATION} from '../graphql';
 import FriendBar from '../Containers/FriendBar';
 
 const PostShare = ({ me, displayStatus }) => {
   const [contextInput, setContextInput] = useState("");
-  const { loading, error, data, subscribeToMore } = useQuery(POST_QUERY, { variables:{ type: 6 } });
+  const { loading, error, data, subscribeToMore } = useQuery(POST_QUERY, { variables:{} });
   const [updatePost] = useMutation(CREATE_POST_MUTATION);
   const [updateComment] = useMutation(CREATE_COMMENT_MUTATION);
   useEffect(() => {
     try {
       subscribeToMore({
-        document: POST_SUBSCRIPTION6,
+        document: POST_SUBSCRIPTION,
         variables: {},
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev;
-          const newPost = subscriptionData.data.post6.data;
+          const newPost = subscriptionData.data.post.data;
           return Object.assign({}, prev, {
             posts: [newPost, ...prev.posts]
           });
@@ -28,7 +28,6 @@ const PostShare = ({ me, displayStatus }) => {
   const updateItem =  async (contextInput) => {
     await updatePost({
         variables:{
-            type: 6,
             body: contextInput,
             author: me
         }

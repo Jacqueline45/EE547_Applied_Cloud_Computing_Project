@@ -1,16 +1,16 @@
 import { gql } from '@apollo/client';
 
-export const DELETE_POST_MUTATION = gql`
-    mutation deletePost(
+export const DELETE_DUE_MUTATION = gql`
+    mutation deleteDue(
         $_id: ID!
         $author: String!
     ){
-        deletePost(
+        deleteDue(
             _id: $_id
             author: $author
         )
         {
-            time
+            due
             body 
             author{name}
         }

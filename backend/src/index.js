@@ -8,6 +8,7 @@ const { execute, subscribe } = require('graphql');
 const cors = require('cors');
 import User from '../resolvers/User'
 import Message from '../resolvers/Message'
+import Due from '../resolvers/Due'
 import Post from '../resolvers/Post'
 import Comment from '../resolvers/Comment'
 import Vote from '../resolvers/Vote'
@@ -47,6 +48,7 @@ async function connectMongo() {
     resolvers: {
       User,
       Message,
+      Due,
       Post,
       Comment,
       Vote,

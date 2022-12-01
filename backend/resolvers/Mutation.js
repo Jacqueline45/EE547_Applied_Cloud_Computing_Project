@@ -103,67 +103,90 @@ const Mutation = {
 
         } catch(e){console.log(e)}
     },
-
-    // type: 4 => Each person can have many posts.
-    // type: 6 => Each person can have only one post.
-     
-    async createPost(parent, {data}, context, info) {
+    async createDue(parent, {data}, context, info) {
         try {
-            const {type, body, author} = data;
+            const {due, body, author} = data;
             const user = await db.UserModel.findOne({name: author});
 
-            if (!user) {
-              throw new Error('User not found');
-            }
+            if (!user) { throw new Error('User not found'); }
+            const due_post = {
+                due: due,
+                body: body,
+                author: user
+            };
+            await new db.DueModel(due_post).save();
+            pubsub.publish('due'+`${author}`, {
+                due: {
+                    mutation: 'CREATED',
+                    data: due_post,
+                },
+            });
+            console.log("===Mutation: createDue===");
+            console.log(due_post);
+            return due_post;
+
+        }catch(e) {console.log(e)}
+    },
+    async deleteDue(parent, {_id, author}, context, info) {
+        try{
+            const user = await db.UserModel.findOne({name: author})
+            if(!user) throw('User not found')
+            const due = await db.DueModel.findOne({_id: _id, author: user});
+            if(!due) throw('Due not found')
+
+            await db.DueModel.deleteOne({_id: _id, author: user});
+            
+            pubsub.publish('due'+`${author}`, {
+                due: {
+                    mutation: 'DELETED',
+                    data: due,
+                },
+            });
+
+            return due
+        } catch(e) {console.log(e)}
+    },
+    async createPost(parent, {data}, context, info) {
+        try {
+            const {body, author} = data;
+            const user = await db.UserModel.findOne({name: author});
+
+            if (!user) { throw new Error('User not found');}
             var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
             var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
             var timeStamp = localISOTime.substring(0, 10) + '-' + localISOTime.substring(11, 13) + '-' + localISOTime.substring(14, 16) + '-' + localISOTime.substring(17, 19);
             const post = {
-                type: type,
                 time: timeStamp,
                 body: body,
                 author: user,
                 comments: []
             };
-            
-            if( type === 4 ){
-                await new db.PostModel(post).save();
-                pubsub.publish('post'+`${type}`+`${author}`, {
-                    post: {
-                        mutation: 'CREATED',
-                        data: post,
-                    },
-                });
-            }else if( type === 6 ){
-                await db.PostModel.updateOne({type: type, author: user},post,{upsert: true});
-                pubsub.publish('post6', {
-                    post6: {
-                        mutation: 'CREATED',
-                        data: post,
-                    },
-                });
-            }else {
-                throw new Error(`POST doesn't have Type(${type})`)
-            }
+            await db.PostModel.updateOne({author: user},post,{upsert: true});
+            pubsub.publish('post', {
+                post: {
+                    mutation: 'CREATED',
+                    data: post,
+                },
+            });
             console.log("===Mutation: createPost===")
-            console.log(post)
+            console.log(post);
             return post;
 
         }catch(e) {console.log(e)}
     },
 
-    async deletePost(parent, {type, _id, author}, context, info) {
+    async deletePost(parent, {_id, author}, context, info) {
         try{
             const user = await db.UserModel.findOne({name: author})
             if(!user) throw('User not found')
             const post = await db.PostModel.findOne({type: type, _id: _id, author: user});
             if(!post) throw('Post not found')
 
-            await db.PostModel.deleteOne({type: type, _id: _id, author: user});
+            await db.PostModel.deleteOne({_id: _id, author: user});
             const comments = await db.CommentModel.deleteMany({post: post});
             console.log(comments)
             
-            pubsub.publish('post'+`${type}`+`${author}`, {
+            pubsub.publish('post', {
                 post: {
                     mutation: 'DELETED',
                     data: post,
@@ -176,16 +199,13 @@ const Mutation = {
     
     async createComment (parent, {data}, context, info) {
         try {
-            const {type, postId, postAuthor, body, author} = data;
-            if (type !== 6) {
-                throw new Error(`Comment doesn't have Type(${type})`)
-            }
+            const {postId, postAuthor, body, author} = data;
             const postUser = await db.UserModel.findOne({name: postAuthor})
             const commentUser = await db.UserModel.findOne({name: author})
             if (!postUser) throw (`${postAuthor} not found`)
             if (!commentUser) throw (`${author} not found`)
 
-            const post = await db.PostModel.findOne({type:type, _id:postId, author: postUser})
+            const post = await db.PostModel.findOne({_id:postId, author: postUser})
             if(!post) throw ("Post not found")
 
             var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
@@ -199,13 +219,12 @@ const Mutation = {
                 author: commentUser
             })
             await comment.save()
-            await db.PostModel.updateOne({type:type, _id:postId, author: postUser}, {$push: {comments: comment}});
+            await db.PostModel.updateOne({_id:postId, author: postUser}, {$push: {comments: comment}});
             console.log("===Mutation: createComment===")
-            pubsub.publish('post6', {
-                post6: {
+            pubsub.publish('post', {
+                post: {
                     mutation: 'ADDED_COMMENT',
                     data: {
-                        type: post.type,
                         id: post.id,
                         time: post.time,
                         body: post.body,

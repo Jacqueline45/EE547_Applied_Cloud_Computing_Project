@@ -1,9 +1,12 @@
 export { POST_QUERY } from './post_que';
+export { DUE_QUERY } from './due_que';
 export { CREATE_POST_MUTATION } from './post_mut';
+export { CREATE_DUE_MUTATION } from './due_mut';
 export { DELETE_POST_MUTATION } from './post_del';
+export { DELETE_DUE_MUTATION } from './due_del';
+export { DUE_SUBSCRIPTION } from './due_sub';
 export { POST_SUBSCRIPTION } from './post_sub';
-export { POST_SUBSCRIPTION6 } from './post_sub6';
-export {CREATE_COMMENT_MUTATION} from './comment_mut';
+export { CREATE_COMMENT_MUTATION } from './comment_mut';
 export { CREATE_USER_MUTATION } from './user_mut';
 export { SIGNIN_QUERY } from './signin_que';
 export { CREATE_ONEMESSAGE_MUTATION, UPDATE_ONEMESSAGE_MUTATION } from './one_mut';

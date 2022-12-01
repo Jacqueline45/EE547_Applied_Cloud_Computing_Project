@@ -18,8 +18,13 @@ const messageSchema = new Schema({
   body: { type: String },
 });
 
+const dueSchema = new Schema({
+  due: { type: String, required: true },
+  body: { type: String },
+  author: { type: mongoose.Types.ObjectId, ref: 'User' }
+});
+
 const postSchema = new Schema({
-  type: { type: Number, required: true },
   time: { type: String, required: true },
   body: { type: String },
   author: { type: mongoose.Types.ObjectId, ref: 'User' },
@@ -47,6 +52,7 @@ const voteSchema = new Schema({
 
 const UserModel = mongoose.model('User', userSchema);
 const MessageModel = mongoose.model('Message', messageSchema);
+const DueModel = mongoose.model('Due', dueSchema);
 const PostModel = mongoose.model('Post', postSchema);
 const CommentModel = mongoose.model('Comment', commentSchema);
 const OneMessageBoxModel = mongoose.model('OneMessageBox', oneessageboxSchema);
@@ -55,6 +61,7 @@ const VoteModel = mongoose.model('Vote', voteSchema);
 const db = {
   UserModel,
   MessageModel,
+  DueModel,
   PostModel,
   CommentModel,
   OneMessageBoxModel,

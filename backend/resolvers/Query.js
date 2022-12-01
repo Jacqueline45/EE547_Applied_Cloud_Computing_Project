@@ -33,57 +33,25 @@ const Query = {
     } catch(e) {return "USER_NOT_FOUND";}
   },
   
-  async posts(parent, {type, author}, context, info) {
+  async posts(parent, {author}, context, info) {
     try{
-      let time = new Date().toJSON().slice(0,10) +"T00:00:00.000Z"
-      console.log("time: "+time);
+      const post = await db.PostModel.find({});
+      if (!post) throw ("Post Not found")
+      console.log("===Query:Posts===");
+      console.log(post);
+      return post
+    } catch(e) {console.log(e)}
+  },
 
-      // console.log("!type="+ !type)
-      // console.log("!id="+ !id)
-      // console.log("!author="+ !author)
-
-      if (!type && !author) {
-        let posts = await db.PostModel.find({time: {$gte: new Date(time)}}).
-          collation({locale: "en"}).
-          sort({time : 1})
-
-        let newPosts = await Promise.all(posts.map(async (post) => {
-          const comments = await db.CommentModel.find({post:post}).
-                            sort({time: -1})
-          const a = {
-            type: post.type,
-            id: post.id,
-            time: post.time,
-            body: post.body,
-            author: post.author,
-            comments: comments
-          }
-          return a
-        }))
-        return newPosts;
-
-      }
-      else {
-        if (!type) throw new Error("Missing type.")
-        if (type === 4) {
-          if (!author) throw new Error("Missing author.")
-          const user = await db.UserModel.findOne({name: author})
-          const post = await db.PostModel.find({type: type, author: user})
-          console.log(user)
-          console.log(post)
-          if (!user || !post) throw ("User or post Not found")
-          return post
-        }
-        else if (type === 6){
-          const post = await db.PostModel.find({type: type})
-          console.log(post)
-          if (!post) throw ("Post Not found")
-          return post
-        }
-        else {
-          throw new Error(`POST doesn't have Type(${type})`)
-        }
-      }
+  async dues(parent, {author}, context, info) {
+    try{
+      if (!author) throw new Error("Missing author.");
+      const user = await db.UserModel.findOne({name: author});
+      const due_post = await db.DueModel.find({author: user});
+      if (!user || !due_post) throw ("User or post not found.");
+      console.log("===Query:Due Posts===");
+      console.log(due_post);
+      return due_post;
     } catch(e) {console.log(e)}
   },
 
