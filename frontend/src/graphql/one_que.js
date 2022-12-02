@@ -1,14 +1,15 @@
 import { gql } from '@apollo/client';
 
 export const ONEMESSAGEBOX_QUERY = gql`
-    query  {
-        onemessageboxes {
-            # date
-            sender{
-                name
-            }
+    query  MsgforSender(
+        $sender: String!
+    ){
+        onemessageboxes(
+            sender: $sender
+        ) {
+            _id
+            sender{ name }
             body
         }
     }
 `;
-

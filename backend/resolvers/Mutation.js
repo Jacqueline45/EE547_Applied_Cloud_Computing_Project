@@ -275,59 +275,44 @@ const Mutation = {
         try{
             const user = await db.UserModel.findOne({name: sender})
             if(!user) throw ("User not found")
-
-            const existing = await db.OneMessageBoxModel.findOne({sender: user})
-            if (existing){
-                return existing
-            }
-
             const message = new db.OneMessageBoxModel({
-                date: new Date(),
                 sender: user,
                 body: body
             })
-            await message.save()
-            pubsub.publish('oneMessage', {
-                oneMessage: {
+            await message.save();
+            pubsub.publish('message'+`${sender}`, {
+                onemessagebox: {
                     mutation: 'CREATED',
-                    sender: sender,
-                    body: body
+                    data: message,
                 },
             });
-            return message
+            console.log("===Mutation: CreateOneMessage===");
+            console.log(message);
+            return message;
 
         }  catch(e) {console.log(e)}
     },
 
-    async updateOneMessage(parent, {sender, body}, context, info) {
+    async deleteOneMessage(parent, {_id, sender}, context, info) {
         try{
             const user = await db.UserModel.findOne({name: sender})
-            if(!user) throw ("User not found")
+            if(!user) throw('User not found')
+            const message = await db.OneMessageBoxModel.findOne({_id: _id, sender: user});
+            if(!message) throw('Message not found')
 
-            const existing = await db.OneMessageBoxModel.findOne({sender: user})
-            if (!existing)  throw ("Message not found")
-
-            // const message = new db.OneMessageBoxModel({
-            //     date: new Date(),
-            //     sender: user,
-            //     body: body
-            // })
-            existing.date = new Date()
-            existing.body = body
-
-            await existing.save()
-            pubsub.publish('oneMessage', {
-                oneMessage: {
-                    mutation: 'UPDATED',
-                    sender: sender,
-                    body: body
+            await db.OneMessageBoxModel.deleteOne({_id: _id, sender: user});
+            pubsub.publish('message'+`${sender}`, {
+                onemessagebox: {
+                    mutation: 'DELETED',
+                    data: message,
                 },
             });
-            return existing
-
-        }  catch(e) {console.log(e)}
+            console.log("===Mutation: deleteOneMessage===");
+            console.log(message);
+            return message;
+        } catch(e) {console.log(e)}
     },
-
+    
     async createVote (parent, {data}, context, info) {
         try{
             const {vote, creator} = data;

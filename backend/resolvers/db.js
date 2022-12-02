@@ -38,8 +38,7 @@ const commentSchema = new Schema({
   author: { type: mongoose.Types.ObjectId, ref: 'User' },
 });
 
-const oneessageboxSchema = new Schema({
-  date: { type: Date },
+const onemessageboxSchema = new Schema({
   sender: { type: mongoose.Types.ObjectId, ref: 'User' },
   body: { type: String },
 });
@@ -55,7 +54,7 @@ const MessageModel = mongoose.model('Message', messageSchema);
 const DueModel = mongoose.model('Due', dueSchema);
 const PostModel = mongoose.model('Post', postSchema);
 const CommentModel = mongoose.model('Comment', commentSchema);
-const OneMessageBoxModel = mongoose.model('OneMessageBox', oneessageboxSchema);
+const OneMessageBoxModel = mongoose.model('OneMessageBox', onemessageboxSchema);
 const VoteModel = mongoose.model('Vote', voteSchema);
 
 const db = {

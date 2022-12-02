@@ -55,12 +55,16 @@ const Query = {
     } catch(e) {console.log(e)}
   },
 
-  async onemessageboxes(parent, args, context, info){
-    let time = new Date().toJSON().slice(0,10) +"T00:00:00.000Z"
-    console.log("time: "+time);
-
-    await db.OneMessageBoxModel.deleteMany({date: {$lt: new Date(time)}})
-    return await db.OneMessageBoxModel.find().sort({date: 1});
+  async onemessageboxes(parent, {sender}, context, info){
+    try{
+      if (!sender) throw new Error("Missing sender.");
+      const user = await db.UserModel.findOne({name: sender});
+      const message = await db.OneMessageBoxModel.find({sender: user});
+      if (!user || !message) throw ("User or message not found.");
+      console.log("===Query:Message===");
+      console.log(message);
+      return message;
+    } catch(e) {console.log(e)}
   },
 
   async votes(parent, {vote}, context, info){

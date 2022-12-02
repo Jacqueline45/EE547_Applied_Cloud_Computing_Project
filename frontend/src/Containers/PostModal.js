@@ -5,9 +5,7 @@ const { TextArea } = Input;
 
 const PostModal = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
-  const onChange = e => {
-    console.log(e);
-  };
+  const onChange = e => { console.log(e);};
   return (
     <Modal
       visible={visible}

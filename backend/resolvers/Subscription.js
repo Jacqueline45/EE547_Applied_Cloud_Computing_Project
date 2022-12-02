@@ -13,9 +13,9 @@ const Subscription = {
       resolve: (payload) => {return payload.post;},
       subscribe: () => { return pubsub.asyncIterator('post'); }
     },
-    oneMessage: {
-      resolve: (payload) => {return payload.oneMessage},
-      subscribe: () => {return pubsub.asyncIterator('oneMessage')}
+    onemessagebox: {
+      resolve: (payload) => {return payload.onemessagebox},
+      subscribe: (parent, {sender}, context, info) => {return  pubsub.asyncIterator('message'+`${sender}`);}              
     },
     vote: {
       resolve: (payload) => {return payload.vote},

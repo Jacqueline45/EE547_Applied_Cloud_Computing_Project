@@ -62,7 +62,9 @@ cd .. && yarn start
   - Adding a post will immediately rerender accordingly.
 
 6. I can do it
-  - Should be able to write a note and edit.
+  - Should show previous notes if any.
+  - Adding or deleting a note will immediately rerender accordingly.
+  - Each note is draggable and removable. 
   
 7. Blank
 

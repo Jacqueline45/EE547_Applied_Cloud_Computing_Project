@@ -9,33 +9,27 @@ const CREATE_ONEMESSAGE_MUTATION = gql`
             sender: $sender
             body: $body
         ){
-            date
-            sender{
-                name
-            }
+            sender{name}
             body
         }
   }
 `;
 
-const UPDATE_ONEMESSAGE_MUTATION = gql`
-    mutation updateOneMessage(
+const DELETE_ONEMESSAGE_MUTATION = gql`
+    mutation deleteOneMessage(
+        $_id: ID!
         $sender: String!
-        $body: String!
     ){
-        updateOneMessage(
+        deleteOneMessage(
+            _id: $_id
             sender: $sender
-            body: $body
-        ){
-            date
-            sender{
-                name
-            }
-            body
+        )
+        {
+            sender{name}
+            body 
         }
-  }
-
+    }
 `;
 
 
-export {CREATE_ONEMESSAGE_MUTATION, UPDATE_ONEMESSAGE_MUTATION};
+export {CREATE_ONEMESSAGE_MUTATION, DELETE_ONEMESSAGE_MUTATION};
