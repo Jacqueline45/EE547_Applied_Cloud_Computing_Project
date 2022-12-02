@@ -45,7 +45,7 @@ cd .. && yarn start
     - case1:(SUCCESS) --> Show Mood Menu
     - case2:(USER EXIST) --> "Username taken. Try another. If already registered, please log in."
 
-2. Loads of Deadline but Only Wanna be a Couch Potato
+2. Loads of Deadlines but Only Wanna be a Couch Potato
   - Should show previous posts if any.
   - Adding or deleting a post will immediately rerender accordingly.
   - Each post is draggable and removable. 
