@@ -325,14 +325,14 @@ const Mutation = {
                 creator: User,
                 count: 0
             })
-            await newVote.save()
+            await newVote.save();
             pubsub.publish('vote', {
                 vote: {
                     mutation: 'CREATED',
-                    data: vote
+                    data: newVote
                 },
             });
-            return newVote
+            return newVote;
         }catch(e) {console.log(e)}
     },
 
@@ -342,7 +342,7 @@ const Mutation = {
             const User = await db.UserModel.findOne({name: creator});
             if(!User) throw ("User not found")
             const Vote_exist = await db.VoteModel.findOne({vote: vote, creator: User});
-            if(!Vote_exist) throw ("Story not exist!!!")
+            if(!Vote_exist) throw ("Story doesn't exist!!!")
             const c = Vote_exist.count + 1
             const newVote = {
                 vote: vote,
@@ -356,31 +356,26 @@ const Mutation = {
                     data: newVote
                 },
             });
-            return newVote
+            return newVote;
         }catch(e) {console.log(e)}
     },
 
-    async deleteVote (parent, {user}, context, info) {
+    async deleteVote (parent, {_id, creator}, context, info) {
         try{
-            const User = await db.UserModel.findOne({name: user});
+            const User = await db.UserModel.findOne({name: creator});
             if(!User) throw ("User not found")
 
-            const voted = await db.VoteModel.find({users: User})
-            if(!voted.length) throw ("User didn't vote")
-            // console.log(["Voted",voted])
+            const vote = await db.VoteModel.findOne({_id: _id, creator: User});
+            if(!vote) throw ("Vote not found");
 
-            voted[0].users = voted[0].users.filter((user) => {
-                return user.toString() !== User._id.toString()
-            })
-            // console.log(["Delete vote.users",voted[0].users])
-            await voted[0].save()
+            await db.VoteModel.deleteOne({_id: _id, creator: User});
             pubsub.publish('vote', {
                 vote: {
                     mutation: 'DELETED',
-                    data:voted[0]
+                    data:vote
                 },
             });
-            return voted[0]
+            return vote;
         }catch(e) {console.log(e)}
     },
 

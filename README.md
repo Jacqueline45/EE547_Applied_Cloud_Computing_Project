@@ -58,8 +58,9 @@ cd .. && yarn start
   - Open a new tab at localhost:3000 and log in with a different username, you'll see updates from both tabs simultaneously.
 
 5. Damnnnnn
-  - Should show previous votes if any.
-  - Adding a post will immediately rerender accordingly.
+  - Each person can create multiple items and give multiple items.
+  - Items can be deleted only if they are created by the person deleting them. 
+  - Open a new tab at localhost:3000 and log in with a different username, you'll see updates from both tabs simultaneously.
 
 6. I can do it
   - Should show previous notes if any.

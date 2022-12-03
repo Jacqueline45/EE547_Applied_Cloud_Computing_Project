@@ -39,7 +39,7 @@ const App = () => {
               <Route path='/' element={<LogIn setMe={setMe} displayStatus={displayStatus}/>} />
               <Route path='/sign-in' element={<LogIn setMe={setMe} displayStatus={displayStatus}/>} />
               <Route path='/sign-up' element={<SignUp setMe={setMe} displayStatus={displayStatus}/>} /> 
-              <Route path='/mood-choice' element={<MoodChoice />} />
+              <Route path='/mood-choice' element={<MoodChoice me={me}/>} />
               <Route path='/time-record' element={<TimeRecord me={me} displayStatus={displayStatus}/>} />
               <Route path='/post-share' element={<PostShare me={me} displayStatus={displayStatus}/>} />
               <Route path='/light-bulb' element = {<LightBulb/>} />

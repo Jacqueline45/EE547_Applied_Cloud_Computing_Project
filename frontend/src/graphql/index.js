@@ -12,6 +12,7 @@ export { CREATE_ONEMESSAGE_MUTATION, DELETE_ONEMESSAGE_MUTATION} from './one_mut
 export { ONEMESSAGEBOX_QUERY } from './one_que';
 export { ONEMESSAGE_SUBSCRIPTION } from './one_sub';
 export { VOTE_QUERY } from './vote_que';
-export { CREATE_VOTE_MUTATION, UPDATE_VOTE_MUTATION } from './vote_mut';
+export { CREATE_VOTE_MUTATION, UPDATE_VOTE_MUTATION, DELETE_VOTE_MUTATION } from './vote_mut';
+export { VOTE_SUBSCRIPTIONS } from './vote_sub';
 export { USER_QUERY } from './user_que'
 export { USER_SUBSCRIPTIONS } from './user_sub'

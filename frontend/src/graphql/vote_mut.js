@@ -38,4 +38,21 @@ const CREATE_VOTE_MUTATION = gql`
     }
 `;
 
-export {UPDATE_VOTE_MUTATION, CREATE_VOTE_MUTATION};
+const DELETE_VOTE_MUTATION = gql`
+    mutation deleteVote(
+        $_id: ID!
+        $creator: String!
+    ){
+        deleteVote(
+            _id: $_id
+            creator: $creator
+        )
+        {
+            vote 
+            creator{name}
+            count
+        }
+    }
+`;
+
+export {UPDATE_VOTE_MUTATION, CREATE_VOTE_MUTATION, DELETE_VOTE_MUTATION};

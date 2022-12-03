@@ -4,7 +4,7 @@ type Query {
   posts(author: String): [Post!]
   dues(author: String!): [Due!]
   onemessageboxes(sender: String!): [Message!]
-  votes(vote: String): [Vote!]
+  votes(creator: String): [Vote!]
 }
 
 type Mutation {
@@ -25,7 +25,7 @@ type Mutation {
 
   createVote(data: CreateVoteInput!): Vote!
   updateVote(data: CreateVoteInput!): Vote!
-  deleteVote(user: String!): Vote!
+  deleteVote(_id: ID!, creator: String!): Vote!
 
   clearData(type: String): Boolean!
 }
@@ -54,12 +54,8 @@ type Friend{
 
 type Message {
   _id: ID!
-  sender: Sender!
+  sender: Author!
   body: String!
-}
-
-type Sender {
-  name: String!
 }
 
 type Due {
@@ -90,13 +86,10 @@ type Author {
 }
 
 type Vote {
+  _id: ID!
   vote: String!
-  creator: Name!
+  creator: Author!
   count: Int!
-}
-
-type Name {
-  name: String!
 }
 
 type UserSubscriptionPayload {

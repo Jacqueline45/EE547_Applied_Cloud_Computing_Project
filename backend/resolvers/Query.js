@@ -67,12 +67,14 @@ const Query = {
     } catch(e) {console.log(e)}
   },
 
-  async votes(parent, {vote}, context, info){
-    if(!vote){
-      return await db.VoteModel.find()
-    } else {
-      return await db.VoteModel.findOne({vote: vote})
-    }
+  async votes(parent, {creator}, context, info){
+    try{
+      const vote = await db.VoteModel.find({});
+      if (!vote) throw ("Vote Not Found")
+      console.log("===Query:Votes===");
+      console.log(vote);
+      return vote;
+    } catch(e) {console.log(e)}
   },
 }
 
