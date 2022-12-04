@@ -6,7 +6,6 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 const { execute, subscribe } = require('graphql');
 const cors = require('cors');
-import User from '../resolvers/User'
 import Message from '../resolvers/Message'
 import Due from '../resolvers/Due'
 import Post from '../resolvers/Post'
@@ -46,7 +45,6 @@ async function connectMongo() {
   const typeDefs = readFileSync('./schema.graphql').toString('utf-8');
   const schema = makeExecutableSchema({
     resolvers: {
-      User,
       Message,
       Due,
       Post,

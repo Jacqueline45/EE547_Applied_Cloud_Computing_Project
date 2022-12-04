@@ -34,14 +34,23 @@ cd .. && yarn start
 
 ## Detailed Functional Tests
 1. Log in/Sign Up
-  - Usernames have to be unique.
   - If password is forgotten, users have to sign up again with a different username.
-  - Username & Password shouldn't be empty. If empty --> show error message.
   - Log in
     - case1:(SUCCESS) --> Show Mood Menu
     - case2:(WRONG PASSWORD) --> "Wrong account/password. Please try again. If you still can't log in after multiple trials, please sign up with a new username."
     - case3: (USER NOT FOUND) --> "Please sign up first."
   - Sign up 
+    - Should enter phone number, email, username, password, and confirmed password.
+    - The password entered by the user should be same as the confirmed password field.
+    - Usernames have to be unique and non-empty.
+    - Password validation:
+      - A password must contain a lowercase letter, a capital letter, and a number.
+      - Password length must be greater than 8 and less than 16 characters.
+    - Phone number must be in USA format (10 digits).
+    - Email validation:
+      - An email address must end with one of the following: .com .org .edu .gov
+      - An email address must contain a '@'.
+      - An email address must contain at least one alphabet before '@'.
     - case1:(SUCCESS) --> Show Mood Menu
     - case2:(USER EXIST) --> "Username taken. Try another. If already registered, please log in."
 

@@ -41,9 +41,8 @@ type Subscription {
 type User {
   name: String!
   password: String!
-  friends: [Friend!]
-  mood: [Int!]
-  today: Int!
+  phone: String!
+  email: String!
 }
 
 type Friend{
@@ -120,6 +119,8 @@ type VoteSubscriptionPayload {
 input CreateUserInput {
   name: String!
   password: String!
+  phone: String!
+  email: String!
 }
 
 input UpdateUserInput {

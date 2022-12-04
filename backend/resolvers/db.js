@@ -7,9 +7,8 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   name: { type: String, required: true },
   password: { type: String, required: true, select: false },
-  friends: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
-  mood: [{ type: Number }],
-  today: { type: Number, default: -1 },
+  phone: { type: String, required: true, select: false },
+  email: { type: String, required: true, select: false }
 });
 
 const messageSchema = new Schema({

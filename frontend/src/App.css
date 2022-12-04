@@ -133,11 +133,15 @@ color: #61dafb;
 	display: none;
 }
 
+.svg-icon {
+	display: none;
+}
+
 .icon {
-	block-size: 1em;
+	block-size: 2em;
 	display: inline-block;
 	fill: var(--iconFill);
-	inline-size: 1em;
+	inline-size: 2em;
 	vertical-align: middle;
 }
 
@@ -294,19 +298,42 @@ input[type="submit"] {
 	background-color: var(--loginSubmitHoverBackgroundColor);
 }
 
-/* modules/text.css */
+.valid {
+	color: rgb(5, 245, 129);
+	font-size: 11pt;
+	font-weight: bold;
+  }
+  
+  .valid:before {
+	content: '\2714';
+  }
+  
+
+.invalid {
+	color: red;
+	font-size: 11pt;
+	font-weight: bold;
+}
+  
+.invalid:before {
+	content: '\2715';
+}
+
+h4{
+	color: white;
+}
+
+h6{
+	color: white;
+}
 
 p {
-	margin-block: 1.5rem;
+	margin-block: 0.3rem;
 }
 
 .text--center {
 	text-align: center;
 }
-
-
-
-
 
 /***************************************             FK deadline        **************************************/
 @import url(https://fonts.googleapis.com/css?family=Wellfleet);

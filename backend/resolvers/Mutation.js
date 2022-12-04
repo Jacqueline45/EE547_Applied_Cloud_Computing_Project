@@ -10,21 +10,20 @@ async function newUser(db, data){
 const Mutation = {
     async createUser(parent, { data }, context, info) {
         try{
-            console.log("Sign Up Ginny")
-            if (!data.name || !data.password) {
-                throw new Error('Missing Username or password');
-            }
+            if (!data.name) {throw new Error('Missing username');}
+            if (!data.password) {throw new Error('Missing password');}
+            if (!data.phone) {throw new Error('Missing phone');}
+            if (!data.email) {throw new Error('Missing email');}
             const existing = await db.UserModel.findOne({ name: data.name});
             if (existing) {return "USER_EXISTS"}
             const userdata = {
                 name: data.name,
                 password: data.password,
-                friends: [],
-                mood: [],
-                today: -1,
+                phone: data.phone,
+                email: data.email
             };
 
-            const user = await newUser(db, userdata)
+            const user = await newUser(db, userdata);
             
             console.log("===Mutation: createUser===")
             console.log(user)
@@ -98,8 +97,7 @@ const Mutation = {
                     data: user,
                 },
             });
-            return user
-            // .populate({path:'friends', select:'name today'}).execPopulate();  
+            return user;
 
         } catch(e){console.log(e)}
     },
