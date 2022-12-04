@@ -45,7 +45,7 @@ cd .. && yarn start
     - Usernames have to be unique and non-empty.
     - Password validation:
       - A password must contain a lowercase letter, a capital letter, and a number.
-      - Password length must be greater than 8 and less than 16 characters.
+      - Password length must be greater than 7 and less than 16 characters.
     - Phone number must be in USA format (10 digits).
     - Email validation:
       - An email address must end with one of the following: .com .org .edu .gov
