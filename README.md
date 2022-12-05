@@ -37,8 +37,8 @@ cd .. && yarn start
   - If a user forgets his/her username and password, he/she has to type the email that is associated with the account. If email can't be provided, he/she can call for help.
   - Log in
     - case1:(SUCCESS) --> Show Mood Menu
-    - case2:(WRONG PASSWORD) --> "Wrong password.
-    - case3: (USER NOT FOUND) --> "Please sign up first."
+    - case2:(WRONG PASSWORD) --> "Wrong password."
+    - case3:(USER NOT FOUND) --> "Username doesn't exist. Please sign up first."
   - Sign up 
     - Should enter phone number, email, username, password, and confirmed password.
     - The password entered by the user should be same as the confirmed password field.
