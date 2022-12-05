@@ -80,7 +80,6 @@ const PositivePost = ({me}) => {
                 <PostModal
                     visible={modalVisible}
                     onCreate={async(text) => {
-                                console.log(me)
                                 try{await createOneMessage({
                                     variables:{
                                         sender: me,

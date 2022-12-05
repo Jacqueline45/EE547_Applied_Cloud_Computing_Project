@@ -9,6 +9,7 @@ type Query {
 
 type Mutation {
   createUser(data: CreateUserInput!): SignUpType
+  checkUser(email: String!): CheckUserType
   deleteUser(name: String!): User!
   updateUser(data: UpdateUserInput!): User!
 
@@ -179,5 +180,10 @@ enum SignInType {
 enum SignUpType {
   SUCCESS # sign up success
   USER_EXISTS # sign up fail
+}
+
+enum CheckUserType {
+  EMAIL_EXIST 
+  EMAIL_NOT_EXIST 
 }
 

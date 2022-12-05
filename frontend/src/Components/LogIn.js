@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
-import {SIGNIN_QUERY} from "../graphql";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { SIGNIN_QUERY, CHECK_USER } from "../graphql";
+import LoginModal from "../Containers/LoginModal";
 
 const LogIn = ({ setMe, displayStatus }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const addBox = () => { setModalVisible(true); };
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { loading, error, data } = useQuery(SIGNIN_QUERY, {variables:{ name: name, password: password}});
+  const [checkEmail] = useMutation(CHECK_USER);
   useEffect(() => {
     try {
       if(loading) {
@@ -48,6 +52,12 @@ const LogIn = ({ setMe, displayStatus }) => {
                   value={name}
                   onChange={(e) => setName(e.target.value)} />
               </div>
+              <button className='login-btn' onClick={()=>addBox()}>Forgot Username?</button>
+              <LoginModal
+                visible= {modalVisible}
+                checkEmail = {checkEmail}
+                setModalVisible = {setModalVisible}
+              />
               <div className="form__field">
                 <label htmlFor="login__password">
                   <svg className="icon">
@@ -59,6 +69,12 @@ const LogIn = ({ setMe, displayStatus }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}/>
               </div>
+              <button className='login-btn' onClick={()=>addBox()}>Forgot Password?</button>
+              <LoginModal
+                visible= {modalVisible}
+                checkEmail = {checkEmail}
+                setModalVisible = {setModalVisible}
+              />
               <div className="form__field">
                   <input  type="submit" value="Log In"
                     onClick={async (e) => {
@@ -86,7 +102,7 @@ const LogIn = ({ setMe, displayStatus }) => {
                           case "USER_NOT_FOUND":
                             displayStatus({
                               type: "error",
-                              msg: "Couldn't find your account. Please sign up first.",
+                              msg: "Username doesn't exist. Please sign up first.",
                             });
                             break;
                           default: break;
@@ -95,7 +111,7 @@ const LogIn = ({ setMe, displayStatus }) => {
                       else{
                         displayStatus({
                           type: "error",
-                          msg: "Wrong account/password. Please try again. If you still can't log in after multiple trials, please sign up with a new username.",
+                          msg: "Wrong password.",
                         });
                       }
                   }}/>

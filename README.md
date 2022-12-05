@@ -34,10 +34,10 @@ cd .. && yarn start
 
 ## Detailed Functional Tests
 1. Log in/Sign Up
-  - If password is forgotten, users have to sign up again with a different username.
+  - If a user forgets his/her username and password, he/she has to type the email that is associated with the account. If email can't be provided, he/she can call for help.
   - Log in
     - case1:(SUCCESS) --> Show Mood Menu
-    - case2:(WRONG PASSWORD) --> "Wrong account/password. Please try again. If you still can't log in after multiple trials, please sign up with a new username."
+    - case2:(WRONG PASSWORD) --> "Wrong password.
     - case3: (USER NOT FOUND) --> "Please sign up first."
   - Sign up 
     - Should enter phone number, email, username, password, and confirmed password.

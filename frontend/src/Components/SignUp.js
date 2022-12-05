@@ -261,7 +261,6 @@ const SignUp = ({setMe, displayStatus}) => {
                                         return;
                                     }
                                     let result = await addUser(name, password, phone, mail);
-                                    console.log(["result", result.data.createUser]);
                                     switch(result.data.createUser) {
                                         case "SUCCESS":
                                             setMe(name);

@@ -39,6 +39,16 @@ const Mutation = {
         }  catch(e){console.log(e)}
     },
 
+    async checkUser(parent, { email }, context, info) {
+        try{
+            if (!email) {throw new Error('Missing email');}
+            const existing = await db.UserModel.findOne({ email: email});
+            if (existing) {return "EMAIL_EXIST"}
+            else {return "EMAIL_NOT_EXIST"}
+
+        }  catch(e){console.log(e)}
+    },
+
     async deleteUser(parent, { name }, context, info) {
         try{
             if (!name) {

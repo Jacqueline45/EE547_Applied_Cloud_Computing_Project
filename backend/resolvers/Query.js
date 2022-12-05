@@ -8,7 +8,6 @@ const Query = {
           sort({name : 1}).
           select('-password')
       }
-
       let ul = await db.UserModel.find({name: name}).select('-password')
 
       console.log("===Query===")

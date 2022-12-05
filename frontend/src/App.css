@@ -38,6 +38,17 @@ color: #61dafb;
 }
 
 /*                    LogIn                          */
+.login-btn {
+	background-color: transparent; 
+	border: none;
+	color: rgb(114, 238, 242);
+	padding: 5px 15px;
+	text-align: left;
+	text-decoration: underline;
+	display: inline-block;
+	font-size: 16px;
+}
+
 .log-in-blank {
 	width: 100%;
 	height: 25px;
