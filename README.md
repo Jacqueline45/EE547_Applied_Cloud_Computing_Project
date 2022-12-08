@@ -34,7 +34,7 @@ cd .. && yarn start
 
 ## Detailed Functional Tests
 1. Log in/Sign Up
-  - If a user forgets his/her username and password, he/she has to type the email that is associated with the account. If email can't be provided, he/she can call for help.
+  - If a user forgets his/her username and password, he/she has to type the email that is associated with the account. If email can't be provided, he/she can call for help. [Just a simulation]
   - Log in
     - case1:(SUCCESS) --> Show Mood Menu
     - case2:(WRONG PASSWORD) --> "Wrong password."
@@ -63,12 +63,12 @@ cd .. && yarn start
   -  Click twice/once on the bulb: light off/on
 
 4. Some Great News
-  - Each person can have only one post but multiple comments.
+  - Each user can have only one post but multiple comments.
   - Open a new tab at localhost:3000 and log in with a different username, you'll see updates from both tabs simultaneously.
 
 5. Damnnnnn
-  - Each person can create multiple items and give multiple items.
-  - Items can be deleted only if they are created by the person deleting them. 
+  - Each user can create multiple items anonymously and give votes to multiple items.
+  - Items can be deleted only if they are created by the user deleting them. 
   - Open a new tab at localhost:3000 and log in with a different username, you'll see updates from both tabs simultaneously.
 
 6. I can do it

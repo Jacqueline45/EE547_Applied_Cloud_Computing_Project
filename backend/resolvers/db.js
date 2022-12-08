@@ -19,7 +19,7 @@ const messageSchema = new Schema({
 
 const dueSchema = new Schema({
   due: { type: String, required: true },
-  body: { type: String },
+  body: { type: String, required: true },
   author: { type: mongoose.Types.ObjectId, ref: 'User' }
 });
 
