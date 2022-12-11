@@ -2,7 +2,7 @@
 
 - EE547 Project (Fall 2022)
 - (Group 19) InstaMood
-- Creator: [Lifiling Wei](https://github.com/llling339), [Aravindh Soundararajan](https://github.com/Aravindh-Soundararajan), [Jacqueline Liu ](https://github.com/Jacqueline45)
+- Creator: [Lifuling Wei](https://github.com/llling339), [Aravindh Soundararajan](https://github.com/Aravindh-Soundararajan), [Jacqueline Liu ](https://github.com/Jacqueline45)
 
 ## Steps to test in local
 First, clone this repository
